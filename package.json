@@ -1,0 +1,57 @@
+{
+  "name": "adonisjs-s3-operations",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "build": "node ace build --production",
+    "start": "node server.js",
+    "dev": "node ace serve --watch",
+    "lint": "eslint --eslintrc . --ext=.ts",
+    "lint-fix": "eslint --eslintrc . --ext=.ts --fix",
+    "format": "prettier --write ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/the-vishal-kumar/adonisjs-s3-operations.git"
+  },
+  "keywords": [
+    "nodejs",
+    "adonis",
+    "s3"
+  ],
+  "author": "Vishal Kumar",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/the-vishal-kumar/adonisjs-s3-operations/issues"
+  },
+  "homepage": "https://github.com/the-vishal-kumar/adonisjs-s3-operations#readme",
+  "engines": {
+    "node": "14.x",
+    "yarn": "1.x"
+  },
+  "devDependencies": {
+    "@adonisjs/assembler": "^5.0.0",
+    "adonis-preset-ts": "^2.1.0",
+    "eslint": "^7.25.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-adonis": "^1.3.1",
+    "eslint-plugin-prettier": "^3.4.0",
+    "pino-pretty": "^4.7.1",
+    "prettier": "^2.2.1",
+    "typescript": "~4.2",
+    "youch": "^2.2.2",
+    "youch-terminal": "^1.1.1"
+  },
+  "dependencies": {
+    "@adonisjs/core": "^5.1.0",
+    "@adonisjs/repl": "^3.0.0",
+    "aws-sdk": "^2.901.0",
+    "axios": "^0.21.1",
+    "mime-types": "^2.1.30",
+    "path": "^0.12.7",
+    "proxy-addr": "^2.0.6",
+    "reflect-metadata": "^0.1.13",
+    "source-map-support": "^0.5.19",
+    "uuid": "^8.3.2"
+  }
+}

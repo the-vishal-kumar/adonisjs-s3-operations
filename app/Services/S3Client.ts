@@ -51,32 +51,36 @@ export default class S3Client {
     return mimeTypes.lookup(fileName)
   }
 
-  public async generateSignedUrl(filePath: string, fileName: string): Promise<string> {
+  public async generateSignedUrl(filePath: string, fileName: string): Promise<object> {
     if (this.s3Obj === null) await this.init()
+    const contentType = this.getContentType(fileName)
     const params = {
       Bucket: this.s3Obj.BUCKET,
-      Key: filePath,
-      Expires: 5 * 60 /* 5 minutes */,
-      ContentType: this.getContentType(fileName),
+      Key: filePath && filePath !== `` ? `${filePath}/${fileName}` : `${fileName}`,
+      Expires: 5 * 60, // 5 minutes
+      ContentType: contentType,
     }
-    const signedURL = await new Promise<string>((resolve, reject) => {
-      this.s3Obj.getSignedUrl(`putObject`, params, (err, data) => {
+    const data = await new Promise<object>((resolve, reject) => {
+      this.s3Obj.getSignedUrl(`putObject`, params, (err, url) => {
         if (err) {
           Logger.error(`Error while generating signed url===>`, err)
           return reject(err)
         }
-
-        resolve(data)
+        resolve({
+          url,
+          fileName,
+          contentType,
+        })
       })
     })
-    return signedURL
+    return data
   }
 
   public async upload(fileName, filePath, file) {
     if (this.s3Obj === null) await this.init()
     const params = {
       Bucket: s3Config.bucket,
-      Key: `${filePath}/${fileName}`,
+      Key: filePath && filePath !== `` ? `${filePath}/${fileName}` : `${fileName}`,
       Body: fs.createReadStream(file.tmpPath),
     }
     return new Promise<object>((resolve, reject) => {
@@ -87,7 +91,7 @@ export default class S3Client {
     })
   }
 
-  public async findDocument(fileName: string, filePath: string): Promise<object> {
+  public async findDocument(fileName: string, filePath: string = ``): Promise<object> {
     if (this.s3Obj === null) await this.init()
     return new Promise<object>((resolve, reject) => {
       this.s3Obj.listObjectsV2(
@@ -102,7 +106,8 @@ export default class S3Client {
           }
 
           const files = data.Contents
-          const matchingFile = files.filter((file) => file.Key === `${filePath}/${fileName}`)[0]
+          const matchText = filePath && filePath !== `` ? `${filePath}/${fileName}` : `${fileName}`
+          const matchingFile = files.filter((file) => file.Key === matchText)[0]
           if (!matchingFile) return reject(new Error(`FILE_NOT_EXISTS_IN_S3`))
           resolve(matchingFile)
         }

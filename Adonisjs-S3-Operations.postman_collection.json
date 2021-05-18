@@ -1,0 +1,129 @@
+{
+	"info": {
+		"_postman_id": "047e845f-579b-41b5-be34-6ba4ec3f334a",
+		"name": "Adonisjs-S3-Operations",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Generate Signed URL",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"fileName\": \"s3-operations.png\",\n    \"filePath\": \"s3Uploaded\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3333/document/generateSignedUrl",
+					"host": [
+						"localhost"
+					],
+					"port": "3333",
+					"path": [
+						"document",
+						"generateSignedUrl"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Upload",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "filePath",
+							"value": "s3Uploaded",
+							"type": "text"
+						},
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/home/vishal/Pictures/kudos.jpg"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:3333/document/upload",
+					"host": [
+						"localhost"
+					],
+					"port": "3333",
+					"path": [
+						"document",
+						"upload"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Download",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3333/document/download?fileName=006ea7e2-813a-42ae-bc0d-1ff85167c335.png&filePath=s3Uploaded",
+					"host": [
+						"localhost"
+					],
+					"port": "3333",
+					"path": [
+						"document",
+						"download"
+					],
+					"query": [
+						{
+							"key": "fileName",
+							"value": "006ea7e2-813a-42ae-bc0d-1ff85167c335.png"
+						},
+						{
+							"key": "filePath",
+							"value": "s3Uploaded"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:3333/document/delete?fileName=006ea7e2-813a-42ae-bc0d-1ff85167c335.png&filePath=s3Uploaded",
+					"host": [
+						"localhost"
+					],
+					"port": "3333",
+					"path": [
+						"document",
+						"delete"
+					],
+					"query": [
+						{
+							"key": "fileName",
+							"value": "006ea7e2-813a-42ae-bc0d-1ff85167c335.png"
+						},
+						{
+							"key": "filePath",
+							"value": "s3Uploaded"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

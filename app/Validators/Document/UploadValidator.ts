@@ -5,10 +5,10 @@ export default class UploadValidator {
   constructor(protected ctx: HttpContextContract) {}
 
   public schema = schema.create({
-    filePath: schema.string(),
+    filePath: schema.string.optional(),
     file: schema.file({
-      size: `2mb`,
-      extnames: [`jpg`, `gif`, `png`],
+      size: `10mb`,
+      extnames: [`pdf`, `jpg`, `gif`, `png`],
     }),
   })
 

@@ -8,21 +8,16 @@ export default class DocumentController {
     const { fileName, filePath } = await request.validate(FileNameAndFilePathValidator)
     const s3 = new S3Client()
     const generatedFileName = s3.generateFileName(fileName)
-    const signedURL = await s3.generateSignedUrl(filePath, generatedFileName)
-    return response.status(201).json({
-      url: signedURL,
-      generatedFileName,
-      contentType: s3.getContentType(generatedFileName),
-    })
+    const data = await s3.generateSignedUrl(filePath, generatedFileName)
+    return response.status(201).json(data)
   }
 
   public async upload({ request, response }: HttpContextContract) {
-    const { filePath } = await request.validate(UploadValidator)
-    const file = request.file(`file`)
+    const { filePath, file } = await request.validate(UploadValidator)
     const s3 = new S3Client()
     const generatedFileName = s3.generateFileName(file.clientName)
     const data = await s3.upload(generatedFileName, filePath, file)
-    return response.status(201).json({ data })
+    return response.status(201).json(data)
   }
 
   public async download({ request, response }: HttpContextContract) {
@@ -30,7 +25,7 @@ export default class DocumentController {
     const s3 = new S3Client()
     const url = await s3.getUrlFromBucket(`${filePath}/${fileName}`)
     const file = await s3.findDocument(fileName, filePath)
-    return response.status(200).json({ data: { ...file, url } })
+    return response.status(200).json({ ...file, url })
   }
 
   public async delete({ request, response }: HttpContextContract) {

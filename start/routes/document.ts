@@ -1,7 +1,9 @@
 import Route from '@ioc:Adonis/Core/Route'
 
 Route.group(() => {
-  Route.post(`generateSignedUrl`, `DocumentController.generateSignedUrl`)
+  Route.post(`create-new-bucket`, `DocumentController.createNewBucket`)
+
+  Route.post(`generate-signed-url`, `DocumentController.generateSignedUrl`)
 
   Route.post(`upload`, `DocumentController.upload`)
   Route.get(`download`, `DocumentController.download`)

@@ -21,18 +21,30 @@
     - Run `yarn dev` to start API server with `nodemon` support, or
     - Run `yarn start`
 1. Import `Adonisjs-S3-Operations.postman_collection` in [Postman]
-    - You can try APIs to upload, download and delete photos for your S3 Bucket
-1. Currently you can only upload `pdf`, `jpg`, `gif`, `png` files of size less than or equal to 10MB because of a validator (See path - `app/Validators/Document/UploadValidator`). Remove the validations to upload file of any file format and size
+    - Add an environment variable `host` and set its value to `http://localhost:8000`
+    - Try `Create New S3 Bucket` API to create new S3 Bucket
+    - Try `Generate Signed URL` API to generate a pre-signed URL for uploading files directly to this URL
+    - Try `Upload`, `Download` and `Delete` APIs for respective file operations on your S3 Bucket
+1. Currently you can only upload `pdf`, `jpg`, `gif`, `png` files of size less than or equal to 10MB because of a validator (See path - `app/Validators/Document/UploadValidator` and `app/Validators/Document/FileNameAndFilePathValidator`). Remove the validations to upload file of any file format and size
 
 ## APIs
 
-1. POST **{{host}}/document/generateSignedUrl**
+
+1. POST **{{host}}/document/create-new-bucket**
+
+    > body
+
+        {
+            "bucketName": "vishal-new-bucket", // string
+        }
+
+1. POST **{{host}}/document/generate-signed-url**
 
     > body
 
         {
             "fileName": "s3-operations.png", // string
-            "filePath": "s3Uploaded"
+            "filePath": "s3Uploaded", // string
         }
 
     Front-end is supposed to hit the API, and receive a Pre-signed url. Then front-end has to upload file to this url in a PUT method.
@@ -42,7 +54,7 @@
     > body
 
         {
-            "filePath": "s3Uploaded",
+            "filePath": "s3Uploaded", // string
             "file": "s3-operations.png" // file
         }
 

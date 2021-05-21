@@ -6,6 +6,33 @@
 	},
 	"item": [
 		{
+			"name": "Create New S3 Bucket",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"bucketName\": \"vishal-new-bucket\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/document/create-new-bucket",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"document",
+						"create-new-bucket"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Generate Signed URL",
 			"request": {
 				"method": "POST",
@@ -20,14 +47,13 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:3333/document/generateSignedUrl",
+					"raw": "{{host}}/document/generate-signed-url",
 					"host": [
-						"localhost"
+						"{{host}}"
 					],
-					"port": "3333",
 					"path": [
 						"document",
-						"generateSignedUrl"
+						"generate-signed-url"
 					]
 				}
 			},
@@ -54,11 +80,10 @@
 					]
 				},
 				"url": {
-					"raw": "localhost:3333/document/upload",
+					"raw": "{{host}}/document/upload",
 					"host": [
-						"localhost"
+						"{{host}}"
 					],
-					"port": "3333",
 					"path": [
 						"document",
 						"upload"
@@ -73,11 +98,10 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:3333/document/download?fileName=006ea7e2-813a-42ae-bc0d-1ff85167c335.png&filePath=s3Uploaded",
+					"raw": "{{host}}/document/download?fileName=006ea7e2-813a-42ae-bc0d-1ff85167c335.png&filePath=s3Uploaded",
 					"host": [
-						"localhost"
+						"{{host}}"
 					],
-					"port": "3333",
 					"path": [
 						"document",
 						"download"
@@ -102,11 +126,10 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "localhost:3333/document/delete?fileName=006ea7e2-813a-42ae-bc0d-1ff85167c335.png&filePath=s3Uploaded",
+					"raw": "{{host}}/document/delete?fileName=006ea7e2-813a-42ae-bc0d-1ff85167c335.png&filePath=s3Uploaded",
 					"host": [
-						"localhost"
+						"{{host}}"
 					],
-					"port": "3333",
 					"path": [
 						"document",
 						"delete"

@@ -51,6 +51,21 @@ export default class S3Client {
     return mimeTypes.lookup(fileName)
   }
 
+  public async createNewBucket(bucketName: string): Promise<object> {
+    if (this.s3Obj === null) await this.init()
+    return new Promise<object>((resolve, reject) => {
+      this.s3Obj.createBucket(
+        {
+          Bucket: bucketName,
+        },
+        (err, data) => {
+          if (err) return reject(err)
+          else resolve(data)
+        }
+      )
+    })
+  }
+
   public async generateSignedUrl(filePath: string, fileName: string): Promise<object> {
     if (this.s3Obj === null) await this.init()
     const contentType = this.getContentType(fileName)

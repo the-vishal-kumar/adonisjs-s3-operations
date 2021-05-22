@@ -85,6 +85,7 @@
     |   |   ├──S3Client.ts
     |   ├──Validators
     |   |   ├──Document
+    |   |   |   ├──CreateBucketValidator.ts
     |   |   |   ├──FileNameAndFilePathValidator.ts
     |   |   |   ├──UploadValidator.ts
     ├──start

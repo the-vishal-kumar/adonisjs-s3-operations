@@ -21,7 +21,7 @@ export default class DocumentController {
     const s3 = new S3Client()
     const generatedFileName = s3.generateFileName(fileName)
     const data = await s3.generateSignedUrl(filePath, generatedFileName)
-    return response.status(201).json(data)
+    response.status(200).json(data)
   }
 
   public async upload({ request, response }: HttpContextContract) {
@@ -29,7 +29,7 @@ export default class DocumentController {
     const s3 = new S3Client()
     const generatedFileName = s3.generateFileName(file.clientName)
     const data = await s3.upload(generatedFileName, filePath, file)
-    return response.status(201).json(data)
+    response.status(201).json(data)
   }
 
   public async download({ request, response }: HttpContextContract) {
@@ -37,13 +37,13 @@ export default class DocumentController {
     const s3 = new S3Client()
     const url = await s3.getUrlFromBucket(`${filePath}/${fileName}`)
     const file = await s3.findDocument(fileName, filePath)
-    return response.status(200).json({ ...file, url })
+    response.status(200).json({ ...file, url })
   }
 
   public async delete({ request, response }: HttpContextContract) {
     const { fileName, filePath } = await request.validate(FileNameAndFilePathValidator)
     const s3 = new S3Client()
     await s3.delete(`${filePath}/${fileName}`)
-    return response.status(200)
+    response.status(204)
   }
 }

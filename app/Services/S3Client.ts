@@ -2,6 +2,7 @@
 
 import Logger from '@ioc:Adonis/Core/Logger'
 import Env from '@ioc:Adonis/Core/Env'
+import { CreateBucketResponseObject } from 'Contracts/createBucketResponseData'
 const path = require(`path`)
 const S3 = require(`aws-sdk/clients/s3`)
 const mimeTypes = require(`mime-types`)
@@ -51,16 +52,16 @@ export default class S3Client {
     return mimeTypes.lookup(fileName)
   }
 
-  public async createNewBucket(bucketName: string): Promise<object> {
+  public async createNewBucket(bucketName: string): Promise<CreateBucketResponseObject> {
     if (this.s3Obj === null) await this.init()
-    return new Promise<object>((resolve, reject) => {
+    return new Promise<CreateBucketResponseObject>((resolve, reject) => {
       this.s3Obj.createBucket(
         {
           Bucket: bucketName,
         },
         (err, data) => {
           if (err) return reject(err)
-          else resolve(data)
+          resolve(data)
         }
       )
     })

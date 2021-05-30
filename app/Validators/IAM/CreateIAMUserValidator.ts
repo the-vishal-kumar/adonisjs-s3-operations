@@ -1,19 +1,16 @@
 import { schema } from '@ioc:Adonis/Core/Validator'
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 
-export default class UploadValidator {
+export default class CreateIAMUserValidator {
   constructor(protected ctx: HttpContextContract) {}
 
   public schema = schema.create({
+    userName: schema.string(),
     bucketName: schema.string(),
-    filePath: schema.string.optional(),
-    file: schema.file({
-      size: `10mb`,
-      extnames: [`pdf`, `jpg`, `gif`, `png`],
-    }),
   })
 
   public messages = {
-    'filePath.required': `File path is required`,
+    'bucketName.required': `Bucket name is required`,
+    'userName.required': `User name is required`,
   }
 }

@@ -5,6 +5,7 @@ export default class FileNameAndFilePathValidator {
   constructor(protected ctx: HttpContextContract) {}
 
   public schema = schema.create({
+    bucketName: schema.string(),
     fileName: schema.string(),
     filePath: schema.string(),
   })

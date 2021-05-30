@@ -1,6 +1,8 @@
 import Route from '@ioc:Adonis/Core/Route'
 import HealthCheck from '@ioc:Adonis/Core/HealthCheck'
 
+import './bucket'
+import './iam'
 import './document'
 
 Route.get(`/`, async () => {

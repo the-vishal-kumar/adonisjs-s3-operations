@@ -1,6 +1,8 @@
+> **Archived.** Written in 2021 and kept as a record of earlier work. It is no longer maintained and its dependencies are outdated.
+
 # Adonisjs-S3-Operations
 
-* It is a sample NodeJs application demonstration AWS S3 operations such as upload, download or delete file.
+* It is a sample NodeJs application demonstrating AWS S3 operations such as upload, download or delete file.
 * It uses AdonisJs as NodeJs framework
 
 ## Initial setup

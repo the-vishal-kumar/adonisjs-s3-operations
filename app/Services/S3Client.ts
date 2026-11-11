@@ -65,43 +65,6 @@ export default class S3Client {
     })
   }
 
-  public async updateBucketPolicy(bucketName: string): Promise<void> {
-    await this.init()
-
-    const bucketPolicy = {
-      Version: `2012-10-17`,
-      Statement: [
-        {
-          Effect: `Allow`,
-          Principal: `*`,
-          Action: [`s3:ListBucket`, `s3:GetBucketLocation`],
-          Resource: `arn:aws:s3:::${bucketName}`,
-        },
-        {
-          Effect: `Allow`,
-          Principal: `*`,
-          Action: [`s3:PutObject`, `s3:PutObjectAcl`, `s3:GetObject`, `s3:DeleteObject`],
-          Resource: `arn:aws:s3:::${bucketName}/*`,
-        },
-      ],
-    }
-
-    const bucketPolicyParams = {
-      Bucket: bucketName,
-      Policy: JSON.stringify(bucketPolicy),
-    }
-
-    return new Promise((resolve, reject) => {
-      this.s3Obj.putBucketPolicy(bucketPolicyParams, (err) => {
-        if (err) {
-          Logger.error(err, `Error in S3.putBucketPolicy`)
-          return reject(err)
-        }
-        resolve()
-      })
-    })
-  }
-
   public async updateBucketCors(bucketName: string) {
     await this.init()
 

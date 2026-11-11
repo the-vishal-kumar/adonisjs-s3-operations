@@ -9,7 +9,6 @@ export default class BucketController {
     const s3 = new S3Client()
     try {
       const data = await s3.createBucket(slugify(bucketName))
-      await s3.updateBucketPolicy(bucketName)
       await s3.updateBucketCors(bucketName)
       response.status(201).json(data)
     } catch (error) {
